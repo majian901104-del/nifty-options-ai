@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#05080d">
+  <meta name="description" content="AI-assisted market intelligence for NIFTY 50 options. Combine price action, options positioning, global news and disciplined risk controls in one research workflow.">
+  <meta property="og:title" content="NIFTY AI Quant — Options Intelligence">
+  <meta property="og:description" content="From market noise to structured NIFTY 50 options research.">
+  <meta property="og:type" content="website">
+  <title>NIFTY AI Quant — Options Intelligence</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#05080d;--panel:#0a1018;--panel2:#0d1520;--line:#1a2937;--line2:#203547;
+      --text:#f1f7fb;--muted:#8495a5;--soft:#b8c5d0;--cyan:#39e8d4;--blue:#4a8cff;
+      --green:#23d18b;--red:#ff5f73;--amber:#ffbd59;--radius:22px;--max:1180px
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:var(--bg);color:var(--text);font-family:"DM Sans",sans-serif;overflow-x:hidden}
+    body:before{content:"";position:fixed;inset:0;pointer-events:none;background:
+      radial-gradient(circle at 80% 10%,rgba(57,232,212,.08),transparent 26rem),
+      radial-gradient(circle at 8% 34%,rgba(74,140,255,.07),transparent 28rem),
+      linear-gradient(rgba(255,255,255,.015) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(255,255,255,.015) 1px,transparent 1px);
+      background-size:auto,auto,48px 48px,48px 48px;mask-image:linear-gradient(to bottom,#000,transparent 84%)}
+    a{color:inherit;text-decoration:none}
+    button,input{font:inherit}
+    .container{width:min(calc(100% - 40px),var(--max));margin:auto}
+    .nav{height:78px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,.06)}
+    .brand{display:flex;gap:12px;align-items:center;font-family:"Manrope",sans-serif;font-weight:800;letter-spacing:-.02em}
+    .mark{width:37px;height:37px;border:1px solid rgba(57,232,212,.35);border-radius:11px;display:grid;place-items:center;background:linear-gradient(145deg,rgba(57,232,212,.18),rgba(74,140,255,.08));box-shadow:0 0 25px rgba(57,232,212,.08)}
+    .mark svg{width:21px}
+    .brand small{display:block;color:var(--muted);font-size:9px;letter-spacing:.18em;margin-top:2px}
+    .navlinks{display:flex;align-items:center;gap:30px;color:#aab8c4;font-size:13px}
+    .navlinks a:hover{color:#fff}
+    .pillbtn{display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:12px 18px;border:1px solid rgba(57,232,212,.32);border-radius:999px;color:#dffefa;background:rgba(57,232,212,.07);font-weight:700;font-size:13px;transition:.25s}
+    .pillbtn:hover{transform:translateY(-2px);background:rgba(57,232,212,.13);box-shadow:0 10px 35px rgba(57,232,212,.10)}
+    .hero{padding:74px 0 54px;position:relative}
+    .hero-grid{display:grid;grid-template-columns:.88fr 1.12fr;gap:54px;align-items:center}
+    .eyebrow{display:inline-flex;align-items:center;gap:9px;color:var(--cyan);font-size:12px;font-weight:800;letter-spacing:.13em;text-transform:uppercase;margin-bottom:22px}
+    .pulse{width:7px;height:7px;background:var(--green);border-radius:50%;box-shadow:0 0 0 0 rgba(35,209,139,.45);animation:pulse 2s infinite}
+    @keyframes pulse{70%{box-shadow:0 0 0 9px transparent}100%{box-shadow:0 0 0 0 transparent}}
+    h1{font-family:"Manrope",sans-serif;font-size:clamp(46px,5.6vw,75px);line-height:.99;letter-spacing:-.055em;margin:0 0 24px}
+    h1 .accent{background:linear-gradient(100deg,#fff 8%,var(--cyan) 55%,#7ca8ff);-webkit-background-clip:text;background-clip:text;color:transparent}
+    .lead{font-size:18px;line-height:1.65;color:#a7b5c0;max-width:590px;margin:0 0 31px}
+    .actions{display:flex;gap:12px;flex-wrap:wrap}
+    .primary,.secondary{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:0 22px;border-radius:13px;font-weight:800;font-size:14px;transition:.25s;border:1px solid transparent}
+    .primary{color:#04100e;background:linear-gradient(135deg,#72f6df,#35d9c7);box-shadow:0 12px 36px rgba(57,232,212,.16)}
+    .primary:hover{transform:translateY(-2px);box-shadow:0 15px 45px rgba(57,232,212,.25)}
+    .secondary{border-color:#263646;background:#0c131c;color:#dce7ed}
+    .secondary:hover{border-color:#40576c;background:#101a25}
+    .micro{display:flex;gap:23px;flex-wrap:wrap;margin-top:28px;color:#748694;font-size:11px}
+    .micro span{display:flex;align-items:center;gap:7px}
+    .micro i{font-style:normal;color:var(--cyan)}
+    .terminal{border:1px solid #1c2d3b;background:linear-gradient(160deg,rgba(15,24,35,.96),rgba(7,12,18,.98));border-radius:24px;overflow:hidden;box-shadow:0 28px 90px rgba(0,0,0,.45),0 0 0 1px rgba(255,255,255,.02) inset;position:relative}
+    .terminal:after{content:"";position:absolute;inset:-1px;pointer-events:none;border-radius:24px;background:linear-gradient(120deg,rgba(57,232,212,.13),transparent 23%,transparent 80%,rgba(74,140,255,.08));mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);mask-composite:exclude;padding:1px}
+    .terminal-bar{height:47px;display:flex;align-items:center;justify-content:space-between;padding:0 17px;border-bottom:1px solid #192734;background:#0a111a}
+    .dots{display:flex;gap:6px}.dots i{width:7px;height:7px;border-radius:50%;background:#273746}.dots i:first-child{background:var(--red)}.dots i:nth-child(2){background:var(--amber)}.dots i:last-child{background:var(--green)}
+    .terminal-title{font-size:10px;letter-spacing:.15em;color:#748797;text-transform:uppercase}
+    .live{font-size:9px;color:var(--green);background:rgba(35,209,139,.08);padding:5px 8px;border-radius:99px;letter-spacing:.1em}
+    .market-head{padding:18px 20px 10px;display:flex;justify-content:space-between;align-items:flex-end}
+    .market-label{font-size:10px;color:#768897;letter-spacing:.11em;text-transform:uppercase}
+    .market-value{font-family:"Manrope";font-weight:800;font-size:26px;margin-top:4px}
+    .up{color:var(--green)}.down{color:var(--red)}
+    .market-change{text-align:right;font-size:12px}.market-change strong{display:block;font-size:15px}
+    .chartwrap{height:244px;position:relative;margin:0 10px}
+    #chart{width:100%;height:100%;display:block}
+    .chartbadge{position:absolute;top:5px;left:12px;display:flex;gap:12px;font-size:9px;color:#778b99}
+    .chartbadge b{color:#b9c6cf;font-weight:500}
+    .statusgrid{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid #172632}
+    .stat{padding:13px 15px;border-right:1px solid #172632}.stat:last-child{border:0}
+    .stat small{display:block;color:#667987;font-size:9px;letter-spacing:.1em;text-transform:uppercase}
+    .stat strong{display:block;font-size:12px;margin-top:6px}
+    .ticker{overflow:hidden;border-top:1px solid rgba(255,255,255,.05);border-bottom:1px solid rgba(255,255,255,.05);background:#070c12}
+    .ticker-track{display:flex;width:max-content;animation:marquee 31s linear infinite;padding:13px 0}
+    .tick{display:flex;align-items:center;gap:8px;padding:0 24px;border-right:1px solid #17212a;font-size:11px}
+    .tick b{font-weight:700}.tick span{font-family:monospace}
+    @keyframes marquee{to{transform:translateX(-50%)}}
+    .proof{display:grid;grid-template-columns:repeat(4,1fr);margin-top:50px;border:1px solid #172632;border-radius:18px;background:rgba(10,16,24,.66)}
+    .proof div{padding:21px 24px;border-right:1px solid #172632}.proof div:last-child{border:0}
+    .proof b{font-family:"Manrope";display:block;font-size:23px;letter-spacing:-.04em}.proof span{font-size:11px;color:#738493}
+    section{padding:92px 0}
+    .section-kicker{color:var(--cyan);font-size:11px;letter-spacing:.18em;text-transform:uppercase;font-weight:800}
+    h2{font-family:"Manrope";font-size:clamp(34px,4vw,52px);line-height:1.08;letter-spacing:-.045em;margin:13px 0 16px}
+    .section-copy{max-width:650px;color:#8fa0ad;font-size:16px;line-height:1.7}
+    .features{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:38px}
+    .feature{position:relative;padding:28px;border:1px solid #192a38;border-radius:19px;background:linear-gradient(145deg,rgba(14,23,33,.9),rgba(8,13,20,.78));overflow:hidden;transition:.3s}
+    .feature:hover{transform:translateY(-4px);border-color:#2b4858}
+    .feature:before{content:"";position:absolute;width:170px;height:170px;border-radius:50%;right:-100px;top:-100px;background:var(--glow,rgba(57,232,212,.1));filter:blur(4px)}
+    .icon{width:43px;height:43px;border-radius:12px;background:#101d27;border:1px solid #203847;display:grid;place-items:center;color:var(--cyan);margin-bottom:25px}
+    .icon svg{width:21px}
+    .feature h3{font-family:"Manrope";margin:0 0 9px;font-size:18px}
+    .feature p{margin:0;color:#8295a3;font-size:14px;line-height:1.65}
+    .tagrow{display:flex;gap:7px;flex-wrap:wrap;margin-top:20px}
+    .tag{font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:#9fb0bc;border:1px solid #233543;border-radius:99px;padding:6px 9px;background:#0a121a}
+    .intelligence{background:linear-gradient(180deg,transparent,rgba(11,18,27,.65),transparent)}
+    .intel-grid{display:grid;grid-template-columns:1.02fr .98fr;gap:46px;align-items:center;margin-top:42px}
+    .signal-card{border:1px solid #1c3040;border-radius:22px;background:#091019;padding:24px;box-shadow:0 24px 70px rgba(0,0,0,.28)}
+    .signal-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:26px}
+    .signal-top small{color:#748694;font-size:10px;letter-spacing:.12em}.confidence{font:800 12px "Manrope";color:var(--green);padding:7px 10px;background:rgba(35,209,139,.08);border:1px solid rgba(35,209,139,.18);border-radius:9px}
+    .signal-main{display:flex;justify-content:space-between;align-items:end;border-bottom:1px solid #182632;padding-bottom:19px;margin-bottom:19px}
+    .signal-main h3{font:800 24px "Manrope";margin:0 0 5px}.signal-main p{font-size:11px;color:#718390;margin:0}
+    .bias{text-align:right}.bias strong{display:block;color:var(--green);font:800 16px "Manrope"}.bias span{font-size:10px;color:#6e8190}
+    .factor{margin:15px 0}.factor-head{display:flex;justify-content:space-between;font-size:11px;color:#a2b0bb;margin-bottom:7px}.bar{height:5px;background:#14222d;border-radius:9px;overflow:hidden}.bar i{display:block;height:100%;border-radius:9px;background:linear-gradient(90deg,var(--blue),var(--cyan));width:var(--w);transform-origin:left;animation:grow 1.4s ease both}
+    @keyframes grow{from{transform:scaleX(0)}}
+    .riskbox{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:20px}.riskbox div{background:#0d1720;border:1px solid #192b38;border-radius:12px;padding:11px}.riskbox small{display:block;font-size:8px;color:#647987;text-transform:uppercase}.riskbox b{display:block;font:700 12px "Manrope";margin-top:5px}
+    .principles{display:grid;gap:13px}
+    .principle{display:grid;grid-template-columns:43px 1fr;gap:15px;padding:17px;border:1px solid transparent;border-radius:15px;transition:.25s}
+    .principle:hover{border-color:#1c303e;background:#0a1119}
+    .number{font:700 12px "Manrope";color:var(--cyan);width:38px;height:38px;display:grid;place-items:center;border:1px solid #244151;border-radius:11px;background:rgba(57,232,212,.05)}
+    .principle h4{margin:1px 0 5px;font:700 15px "Manrope"}.principle p{margin:0;color:#7c8e9c;font-size:13px;line-height:1.55}
+    .flow{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:40px}
+    .step{min-height:190px;padding:21px 18px;border:1px solid #192936;border-radius:17px;background:#091018;position:relative}
+    .step:not(:last-child):after{content:"›";position:absolute;right:-9px;top:83px;color:#3f596b;z-index:2;background:var(--bg);width:17px;height:24px;text-align:center}
+    .step span{font:800 10px "Manrope";color:var(--cyan);letter-spacing:.1em}.step h3{font:700 15px "Manrope";margin:38px 0 8px}.step p{font-size:11px;line-height:1.55;color:#728592;margin:0}
+    .option-preview{margin-top:43px;border:1px solid #1b2d3a;border-radius:22px;overflow:hidden;background:#081019}
+    .option-head{display:flex;justify-content:space-between;align-items:center;padding:17px 21px;border-bottom:1px solid #192936}
+    .option-head h3{font:700 13px "Manrope";margin:0}.option-head span{font-size:9px;color:#718492;letter-spacing:.08em}
+    .option-table{display:grid;grid-template-columns:1fr .7fr .8fr .7fr 1fr}
+    .cell{padding:12px 15px;border-bottom:1px solid #14222d;font-size:11px;color:#98a8b3;text-align:right}.cell:nth-child(5n+1){text-align:left}.cell.head{font-size:8px;color:#607481;text-transform:uppercase;letter-spacing:.1em;background:#0b141d}.cell.strike{text-align:center;color:#fff;font-weight:700;background:#101b25}.cell.hot{background:rgba(35,209,139,.055);color:#a6f6d5}.cell.warn{background:rgba(255,95,115,.05);color:#ffabb7}
+    .cta{padding:32px 0 98px}
+    .cta-box{position:relative;overflow:hidden;border:1px solid #224052;border-radius:26px;padding:58px;text-align:center;background:linear-gradient(140deg,#0c1720,#081018)}
+    .cta-box:before,.cta-box:after{content:"";position:absolute;border-radius:50%;filter:blur(1px)}
+    .cta-box:before{width:330px;height:330px;left:-180px;top:-190px;background:radial-gradient(circle,rgba(74,140,255,.17),transparent 67%)}
+    .cta-box:after{width:360px;height:360px;right:-190px;bottom:-220px;background:radial-gradient(circle,rgba(57,232,212,.17),transparent 67%)}
+    .cta-box h2{max-width:720px;margin:12px auto 16px}.cta-box p{max-width:580px;margin:0 auto 26px;color:#8ea0ad;line-height:1.65}
+    .note{font-size:10px;color:#637582;margin-top:14px}
+    footer{border-top:1px solid #14222c;padding:30px 0 38px;color:#647682;font-size:11px}
+    .footer-grid{display:flex;justify-content:space-between;gap:30px}.disclaimer{max-width:760px;line-height:1.6}
+    .reveal{opacity:0;transform:translateY(18px);transition:.7s ease}.reveal.visible{opacity:1;transform:none}
+    .mobile{display:none}
+    @media(max-width:900px){
+      .navlinks a:not(.pillbtn){display:none}.hero{padding-top:48px}.hero-grid,.intel-grid{grid-template-columns:1fr;gap:42px}.hero-copy{text-align:center}.lead{margin-left:auto;margin-right:auto}.actions,.micro{justify-content:center}.terminal{max-width:680px;margin:auto}.proof{grid-template-columns:repeat(2,1fr)}.proof div:nth-child(2){border-right:0}.proof div:nth-child(-n+2){border-bottom:1px solid #172632}.flow{grid-template-columns:repeat(2,1fr)}.step:last-child{grid-column:span 2}.step:not(:last-child):after{display:none}
+    }
+    @media(max-width:620px){
+      .container{width:min(calc(100% - 24px),var(--max))}.nav{height:68px}.brand{font-size:14px}.nav .pillbtn{display:none}.mobile{display:flex}
+      .hero{padding:38px 0 38px}h1{font-size:43px}.lead{font-size:15px}.actions{display:grid}.primary,.secondary{width:100%}.micro{gap:11px 18px;margin-top:22px}
+      .market-head{padding:15px 15px 7px}.market-value{font-size:22px}.chartwrap{height:210px}.statusgrid{grid-template-columns:1fr 1fr}.stat:last-child{display:none}
+      .proof{margin-top:32px}.proof div{padding:17px}.proof b{font-size:20px}section{padding:66px 0}.features{grid-template-columns:1fr}.feature{padding:23px}
+      .riskbox{grid-template-columns:1fr 1fr}.riskbox div:last-child{grid-column:span 2}.flow{grid-template-columns:1fr}.step,.step:last-child{grid-column:auto;min-height:145px}.step h3{margin-top:26px}
+      .option-table{grid-template-columns:1fr .8fr .8fr}.cell:nth-child(5n+2),.cell:nth-child(5n+4){display:none}.cta-box{padding:42px 19px}.footer-grid{display:block}.footer-grid>div:last-child{margin-top:18px}
+    }
+    @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important}}
+  </style>
+</head>
+<body>
+  <header class="container">
+    <nav class="nav">
+      <a class="brand" href="#top" aria-label="NIFTY AI Quant home">
+        <span class="mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 17 9 12l3 3 7-8M15 7h4v4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span>NIFTY AI QUANT<small>MARKET INTELLIGENCE OS</small></span>
+      </a>
+      <div class="navlinks">
+        <a href="#intelligence">Intelligence</a><a href="#framework">Framework</a><a href="#risk">Risk Engine</a>
+        <a class="pillbtn" href="#access">Explore the system <span>→</span></a>
+      </div>
+      <a class="pillbtn mobile" href="#access">Explore <span>→</span></a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="container">
+        <div class="hero-grid">
+          <div class="hero-copy reveal">
+            <div class="eyebrow"><span class="pulse"></span> Built for NIFTY 50 options</div>
+            <h1>See the market.<br><span class="accent">Read the pressure.</span></h1>
+            <p class="lead">An AI-assisted research system that fuses price action, options positioning and global news into one structured view—before you make a decision.</p>
+            <div class="actions">
+              <a class="primary" href="#terminal">View intelligence preview <span>↗</span></a>
+              <a class="secondary" href="#framework">See the signal framework <span>↓</span></a>
+            </div>
+            <div class="micro">
+              <span><i>✓</i> Research-first</span><span><i>✓</i> Risk-defined</span><span><i>✓</i> No trade execution</span>
+            </div>
+          </div>
+
+          <div class="terminal reveal" id="terminal">
+            <div class="terminal-bar">
+              <div class="dots"><i></i><i></i><i></i></div>
+              <div class="terminal-title">NIFTY Intelligence · Simulated Preview</div>
+              <div class="live">● LIVE UI</div>
+            </div>
+            <div class="market-head">
+              <div><div class="market-label">NIFTY 50 · NSE</div><div class="market-value">25,114.40</div></div>
+              <div class="market-change up"><strong>+0.63%</strong><span>+157.80 today</span></div>
+            </div>
+            <div class="chartwrap">
+              <div class="chartbadge"><span>EMA 9 <b class="up">25,101</b></span><span>VWAP <b>25,074</b></span></div>
+              <canvas id="chart" aria-label="Simulated NIFTY 50 candlestick chart"></canvas>
+            </div>
+            <div class="statusgrid">
+              <div class="stat"><small>Market regime</small><strong class="up">Bullish structure</strong></div>
+              <div class="stat"><small>News pulse</small><strong>68 / 100</strong></div>
+              <div class="stat"><small>Volatility</small><strong>Moderate</strong></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="proof reveal">
+          <div><b data-count="100">100+</b><span>global news sources</span></div>
+          <div><b>4-layer</b><span>signal validation</span></div>
+          <div><b>5 min</b><span>research refresh cycle</span></div>
+          <div><b>Risk-first</b><span>decision framework</span></div>
+        </div>
+      </div>
+    </section>
+
+    <div class="ticker" aria-hidden="true">
+      <div class="ticker-track">
+        <div class="tick"><b>NIFTY 50</b><span class="up">+0.63%</span></div><div class="tick"><b>BANK NIFTY</b><span class="up">+0.42%</span></div><div class="tick"><b>INDIA VIX</b><span class="down">-1.18%</span></div><div class="tick"><b>USD/INR</b><span class="down">-0.09%</span></div><div class="tick"><b>FII FLOW</b><span class="up">POSITIVE</span></div><div class="tick"><b>PUT/CALL</b><span>1.07</span></div>
+        <div class="tick"><b>NIFTY 50</b><span class="up">+0.63%</span></div><div class="tick"><b>BANK NIFTY</b><span class="up">+0.42%</span></div><div class="tick"><b>INDIA VIX</b><span class="down">-1.18%</span></div><div class="tick"><b>USD/INR</b><span class="down">-0.09%</span></div><div class="tick"><b>FII FLOW</b><span class="up">POSITIVE</span></div><div class="tick"><b>PUT/CALL</b><span>1.07</span></div>
+      </div>
+    </div>
+
+    <section id="intelligence">
+      <div class="container">
+        <div class="reveal"><div class="section-kicker">Signal intelligence</div><h2>One market. Four lenses.<br>Less noise.</h2><p class="section-copy">NIFTY AI Quant organises fragmented market information into an explainable research workflow. Every directional idea must pass through multiple independent checks.</p></div>
+        <div class="features">
+          <article class="feature reveal"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="8"/><path d="M4 12h16M12 4a13 13 0 0 1 0 16M12 4a13 13 0 0 0 0 16" stroke-width="1.6"/></svg></div><h3>Global News Intelligence</h3><p>Tracks 100+ major financial and business sources, groups related events and maps potential relevance to Indian equities.</p><div class="tagrow"><span class="tag">Event clustering</span><span class="tag">Sentiment</span><span class="tag">India impact</span></div></article>
+          <article class="feature reveal" style="--glow:rgba(74,140,255,.12)"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 19V9m5 10V5m5 14v-7m5 7V3" stroke-width="1.8" stroke-linecap="round"/></svg></div><h3>Price & Structure Engine</h3><p>Reads trend, momentum, VWAP behaviour, support and resistance to separate real structure from random movement.</p><div class="tagrow"><span class="tag">Momentum</span><span class="tag">Trend</span><span class="tag">Price action</span></div></article>
+          <article class="feature reveal" style="--glow:rgba(255,189,89,.1)"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 17h3l2-5 3 3 3-8 2 5h3" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><h3>Options Positioning</h3><p>Surfaces open-interest concentration, put-call balance, premium behaviour and changing pressure around key strikes.</p><div class="tagrow"><span class="tag">Open interest</span><span class="tag">PCR</span><span class="tag">Strike pressure</span></div></article>
+          <article class="feature reveal" style="--glow:rgba(255,95,115,.1)"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 3 5 6v5c0 4.8 2.7 8.1 7 10 4.3-1.9 7-5.2 7-10V6l-7-3Z" stroke-width="1.7"/><path d="m9 12 2 2 4-5" stroke-width="1.7"/></svg></div><h3>Risk & R/R Gate</h3><p>Defines entry, invalidation and targets before a setup qualifies. Weak reward-to-risk stays in observation—not execution.</p><div class="tagrow"><span class="tag">Entry logic</span><span class="tag">Invalidation</span><span class="tag">R/R filter</span></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="intelligence" id="risk">
+      <div class="container">
+        <div class="reveal"><div class="section-kicker">Explainable by design</div><h2>A score is not a signal.<br>Context makes it one.</h2></div>
+        <div class="intel-grid">
+          <div class="signal-card reveal">
+            <div class="signal-top"><small>SETUP EVALUATION · DEMO</small><span class="confidence">82% CONFIDENCE</span></div>
+            <div class="signal-main"><div><h3>NIFTY 25,200 CE</h3><p>Weekly expiry · Momentum continuation</p></div><div class="bias"><strong>BULLISH BIAS</strong><span>Validation passed</span></div></div>
+            <div class="factor"><div class="factor-head"><span>Market structure</span><b>88</b></div><div class="bar"><i style="--w:88%"></i></div></div>
+            <div class="factor"><div class="factor-head"><span>Options positioning</span><b>81</b></div><div class="bar"><i style="--w:81%"></i></div></div>
+            <div class="factor"><div class="factor-head"><span>News & macro context</span><b>74</b></div><div class="bar"><i style="--w:74%"></i></div></div>
+            <div class="factor"><div class="factor-head"><span>Momentum regime</span><b>86</b></div><div class="bar"><i style="--w:86%"></i></div></div>
+            <div class="riskbox"><div><small>Entry zone</small><b>₹142–146</b></div><div><small>Invalidation</small><b class="down">₹128</b></div><div><small>Theoretical R/R</small><b class="up">1 : 2.1</b></div></div>
+          </div>
+          <div class="principles reveal">
+            <div class="principle"><div class="number">01</div><div><h4>Evidence before direction</h4><p>No single indicator controls the decision. Independent evidence must agree.</p></div></div>
+            <div class="principle"><div class="number">02</div><div><h4>Invalidation before entry</h4><p>The system identifies what would make the thesis wrong before showing a setup.</p></div></div>
+            <div class="principle"><div class="number">03</div><div><h4>No chasing extended moves</h4><p>Late entries are downgraded when price has already moved beyond the defined zone.</p></div></div>
+            <div class="principle"><div class="number">04</div><div><h4>Every signal is explainable</h4><p>See the factors, market regime and risk logic behind every research output.</p></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="framework">
+      <div class="container">
+        <div class="reveal"><div class="section-kicker">Decision workflow</div><h2>From raw information<br>to a structured thesis.</h2><p class="section-copy">The system is designed to slow down impulsive decisions while accelerating the research that matters.</p></div>
+        <div class="flow">
+          <div class="step reveal"><span>01 · INGEST</span><h3>Collect</h3><p>Price, derivatives, volatility, macro events and global financial news.</p></div>
+          <div class="step reveal"><span>02 · INTERPRET</span><h3>Connect</h3><p>Link market events to NIFTY sectors, sentiment and current price structure.</p></div>
+          <div class="step reveal"><span>03 · VALIDATE</span><h3>Confirm</h3><p>Require agreement across momentum, positioning and market regime.</p></div>
+          <div class="step reveal"><span>04 · CONTROL</span><h3>Define risk</h3><p>Set entry, invalidation, targets and theoretical reward-to-risk.</p></div>
+          <div class="step reveal"><span>05 · EXPLAIN</span><h3>Present</h3><p>Show a concise thesis with supporting and conflicting evidence.</p></div>
+        </div>
+
+        <div class="option-preview reveal">
+          <div class="option-head"><h3>NIFTY OPTIONS PRESSURE MAP</h3><span>SIMULATED DATA · UI PREVIEW</span></div>
+          <div class="option-table">
+            <div class="cell head">Call OI Δ</div><div class="cell head">Call LTP</div><div class="cell head">Strike</div><div class="cell head">Put LTP</div><div class="cell head">Put OI Δ</div>
+            <div class="cell warn">+12.4%</div><div class="cell">₹286.70</div><div class="cell strike">25,000</div><div class="cell">₹61.20</div><div class="cell hot">+4.1%</div>
+            <div class="cell warn">+8.7%</div><div class="cell">₹201.35</div><div class="cell strike">25,100</div><div class="cell">₹92.85</div><div class="cell hot">+11.8%</div>
+            <div class="cell">-2.1%</div><div class="cell">₹142.60</div><div class="cell strike">25,200</div><div class="cell">₹138.40</div><div class="cell hot">+18.3%</div>
+            <div class="cell hot">+16.9%</div><div class="cell">₹91.15</div><div class="cell strike">25,300</div><div class="cell">₹201.70</div><div class="cell">-3.6%</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta" id="access">
+      <div class="container">
+        <div class="cta-box reveal">
+          <div class="section-kicker">Built in public · improving daily</div>
+          <h2>A clearer way to research NIFTY 50 options.</h2>
+          <p>Explore the intelligence workflow, exchange ideas with serious market learners and follow the next stage of the build.</p>
+          <a class="primary" href="#terminal" id="mainCta">Explore the platform preview <span>↗</span></a>
+          <div class="note">Research and education only · No guaranteed outcomes · No automated trade execution</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-grid">
+      <div class="disclaimer"><strong style="color:#9cadb8">Risk disclosure:</strong> Options trading involves substantial risk and may result in the loss of capital. This website presents a research interface and educational framework only. It does not provide investment advice, personalised recommendations, performance guarantees or brokerage services. All displayed prices and signals are simulated examples. NIFTY and NSE are trademarks of their respective owners; this project is not affiliated with or endorsed by NSE.</div>
+      <div>© 2026 NIFTY AI QUANT<br>Market Intelligence OS</div>
+    </div>
+  </footer>
+
+  <script>
+    (function(){
+      var reveals=document.querySelectorAll(".reveal");
+      var io=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add("visible");io.unobserve(e.target)}})},{threshold:.12});
+      reveals.forEach(function(el){io.observe(el)});
+
+      var canvas=document.getElementById("chart"),ctx=canvas.getContext("2d"),seed=17;
+      function rand(){seed=(seed*9301+49297)%233280;return seed/233280}
+      function draw(){
+        var dpr=Math.min(window.devicePixelRatio||1,2),w=canvas.clientWidth,h=canvas.clientHeight;
+        canvas.width=w*dpr;canvas.height=h*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,w,h);
+        var pad={l:12,r:44,t:29,b:18},cw=w-pad.l-pad.r,ch=h-pad.t-pad.b;
+        ctx.strokeStyle="rgba(119,148,165,.10)";ctx.lineWidth=1;
+        for(var g=0;g<5;g++){var gy=pad.t+ch*g/4;ctx.beginPath();ctx.moveTo(pad.l,gy);ctx.lineTo(w-pad.r,gy);ctx.stroke()}
+        var data=[],p=24965;seed=17;
+        for(var i=0;i<46;i++){var o=p,move=(rand()-.42)*38+(i>16&&i<34?7:0),c=o+move,hi=Math.max(o,c)+rand()*17,lo=Math.min(o,c)-rand()*15;data.push({o:o,c:c,h:hi,l:lo});p=c}
+        var min=Infinity,max=-Infinity;data.forEach(function(x){min=Math.min(min,x.l);max=Math.max(max,x.h)});
+        function y(v){return pad.t+(max-v)/(max-min)*ch}
+        var slot=cw/data.length,body=Math.max(3,slot*.5),ema=[],e=data[0].c;
+        data.forEach(function(x,i){e=x.c*.22+e*.78;ema.push(e);var xx=pad.l+i*slot+slot/2,up=x.c>=x.o,col=up?"#23d18b":"#ff5f73";ctx.strokeStyle=col;ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(xx,y(x.h));ctx.lineTo(xx,y(x.l));ctx.stroke();ctx.fillStyle=col;ctx.fillRect(xx-body/2,Math.min(y(x.o),y(x.c)),body,Math.max(1,Math.abs(y(x.o)-y(x.c))))});
+        ctx.strokeStyle="#39e8d4";ctx.lineWidth=1.4;ctx.beginPath();ema.forEach(function(v,i){var xx=pad.l+i*slot+slot/2;if(i===0)ctx.moveTo(xx,y(v));else ctx.lineTo(xx,y(v))});ctx.stroke();
+        ctx.fillStyle="#607481";ctx.font="9px monospace";ctx.textAlign="right";
+        for(var t=0;t<4;t++){var val=max-(max-min)*t/3;ctx.fillText(Math.round(val).toLocaleString("en-IN"),w-3,y(val)+3)}
+        var grad=ctx.createLinearGradient(0,pad.t,0,h);grad.addColorStop(0,"rgba(57,232,212,.035)");grad.addColorStop(1,"rgba(57,232,212,0)");ctx.fillStyle=grad;ctx.fillRect(pad.l,pad.t,cw,ch);
+      }
+      draw();window.addEventListener("resize",draw);
+      document.getElementById("mainCta").addEventListener("click",function(){if(window.fbq)fbq("trackCustom","ExplorePlatform")});
+    })();
+  </script>
+</body>
+</html>
